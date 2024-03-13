@@ -5,27 +5,30 @@ def canUnlockAll(boxes):
     """
     Determines if all the boxes can be opened.
     """
-    if not boxes:
+    if not boxes or not isinstance(boxes, list):
         return False
 
-    keys = set([0])
-    visited = set()
+    num_boxes = len(boxes)
+    if num_boxes == 1:
+        return True
+
+    keys = set(boxes[0])
+    unlocked = {0}
 
     while keys:
-        box_index = keys.pop()
-        visited.add(box_index)
-        for key in boxes[box_index]:
-            if key not in visited:
-                keys.add(key)
+        key = keys.pop()
+        if 0 <= key < num_boxes and key not in unlocked:
+            unlocked.add(key)
+            keys.update(boxes[key])
 
-    return len(visited) == len(boxes)
+    return len(unlocked) == num_boxes
 
 if __name__ == "__main__":
-    boxes = [[1], [2], [3], [4], []]
-    print(canUnlockAll(boxes))
+    boxes1 = [[1], [2], [3], [4], []]
+    print(canUnlockAll(boxes1))  # Output: True
 
-    boxes = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
-    print(canUnlockAll(boxes))
+    boxes2 = [[1, 4, 6], [2], [0, 4, 1], [5, 6, 2], [3], [4, 1], [6]]
+    print(canUnlockAll(boxes2))  # Output: True
 
-    boxes = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
-    print(canUnlockAll(boxes))
+    boxes3 = [[1, 4], [2], [0, 4, 1], [3], [], [4, 1], [5, 6]]
+    print(canUnlockAll(boxes3))  # Output: False
