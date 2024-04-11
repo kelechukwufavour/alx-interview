@@ -5,12 +5,12 @@ def is_safe(board, row, col, n):
     for i in range(col):
         if board[row][i] == 1:
             return False
-    for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
-    for i, j in zip(range(row, n, 1), range(col, -1, -1)):
-        if board[i][j] == 1:
-            return False
+        for i, j in zip(range(row, -1, -1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
+        for i, j in zip(range(row, n, 1), range(col, -1, -1)):
+            if board[i][j] == 1:
+                return False
     return True
 
 def solve_nqueens_util(board, col, n):
@@ -32,16 +32,12 @@ def solve_nqueens(n):
     return True
 
 def print_solution(board):
-    n = len(board)
-    result = []
-    for i in range(n):
-        row = []
-        for j in range(n):
-            if board[i][j] == 1:
-                row.append([i, j])
-        result.append(row)
-    for row in result:
-        print(row)
+    for row in board:
+        queens_pos = []
+        for col, val in enumerate(row):
+            if val == 1:
+                queens_pos.append([board.index(row), col])
+        print(queens_pos)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
