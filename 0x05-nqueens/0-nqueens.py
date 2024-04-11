@@ -40,7 +40,8 @@ def print_solution(board):
             if board[i][j] == 1:
                 row.append([i, j])
         result.append(row)
-    print(result)
+    for row in result:
+        print(row)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
