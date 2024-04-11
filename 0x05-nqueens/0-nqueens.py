@@ -32,12 +32,12 @@ def solve_nqueens(n):
     return True
 
 def print_solution(board):
-    for row in board:
-        queens_pos = []
-        for col, val in enumerate(row):
-            if val == 1:
-                queens_pos.append([board.index(row), col])
-        print(queens_pos)
+    solutions = []
+    for row in range(len(board)):
+        for col in range(len(board[0])):
+            if board[row][col] == 1:
+                solutions.append([row, col])
+    print(solutions)
 
 if __name__ == "__main__":
     if len(sys.argv) != 2:
